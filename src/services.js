@@ -15,7 +15,7 @@ export const getAllWorks = (onWorkChanged, sortBy) =>{
     firebase
     .firestore()
     .collection('times')
-    .orderBy(SORT_OPTIONS[sortBy].column, SORT_OPTIONS[sortBy].direction )
+    // .orderBy(SORT_OPTIONS[sortBy].column, SORT_OPTIONS[sortBy].direction )
     .onSnapshot((snapshot)=>{
         const newWork = snapshot.docs.map((doc)=>({
             id:doc.id,
