@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { useState, useEffect } from "react";
+import Header from "./components/Header";
+import Works from "./components/Works";
+import {Alert} from "react-bootstrap";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import WorkById from "./components/WorkById";
+ 
 function App() {
+  const [alert, setAllert] = useState(false);
+  const setAlertHandler = (status) => {
+    if (status) {
+      setAllert("Pridėta");
+    }
+  };
+  useEffect(() => {
+    setTimeout(() => {
+    setAllert('');
+    }, 5000);
+    }, [alert]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <Router>
+       <Header />
+      {(alert)?<Alert variant="success" >{alert}</Alert>: null}
+      <Routes>
+
+        <Route path="/" element={<Works status={setAlertHandler}></Works> }/>
+        <Route path="/work/:id" element={<WorkById></WorkById>}/> 
+        
+
+      </Routes>
+
+      
+      </Router>
+      
     </div>
   );
 }
