@@ -36,31 +36,43 @@ const Filter = (props) => {
         <Form.Group>
           <br />
           <Row xxl={6}>
-            <Col>
+            <Col xxl={2}>
               <Form.Select onChange={handleFilter} name="company">
                 <Companies />
               </Form.Select>
-            </Col>
+            </Col >
             <br />
-            <Col>
+            <Col xxl={2} >
               <Form.Select onChange={handleFilter} name="service">
                 <Services />
               </Form.Select>
             </Col>
             <br />
-            <Col>
+            <Col xxl={1}>
               {Object.keys(filter).length !== 0 && (
                 <Button type="reset" variant="primary" onClick={resetFilter}>
                   Išvalyti
                 </Button>
               )}
             </Col>
-            <Col>
+            <Col xxl={1}>
+            <p>Rūšiavimas</p>
+            </Col>
+            <Col xxl={2}>
               <Form.Select onChange={setSort}>
-              <option >Rūšiuot pagal pav</option>
+              <option >Pagal klientą</option>
                 <option value="COMPANY_ASC">ASC</option>
-                <option value="COMPANY_DSC">DSC</option>
+                <option value="COMPANY_DESC">DSC</option>
               </Form.Select>
+              </Col>
+              <Col xxl={2}>
+                
+              <Form.Select onChange={setSort}>
+              <option >Pagal darbą</option>
+                <option value="SERVICES_ASC">ASC</option>
+                <option value="SERVICES_DESC">DSC</option>
+              </Form.Select>
+           
             </Col>
           </Row>
         </Form.Group>

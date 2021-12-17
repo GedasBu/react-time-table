@@ -1,6 +1,6 @@
 import Work from "./Work";
 import { Table } from "react-bootstrap";
-import * as services from '../services'
+import * as services from '../services/workServices'
 
 const WorksTable = (props) => {
     const deleteItemHandler=(id)=>{

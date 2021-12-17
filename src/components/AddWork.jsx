@@ -5,7 +5,8 @@ import { Button } from "react-bootstrap";
 
 import Companies from "./Companies.jsx";
 import Services from "./Services.jsx";
-import * as services from "../services" 
+import * as services from "../services/workServices"
+import * as companyServices from "../services/companyServices" 
 
 function AddWork({ hideWork, works, update, onUpdateWorkHandler}) {
   const [data, setData] = useState({
@@ -19,7 +20,7 @@ function AddWork({ hideWork, works, update, onUpdateWorkHandler}) {
 
   useEffect(()=>{
     update && services.showById( data => setData(data),update)
-    console.log('update',update)
+ 
   },[])
 
   const handleChange = (e) => {
@@ -35,6 +36,7 @@ function AddWork({ hideWork, works, update, onUpdateWorkHandler}) {
     onUpdateWorkHandler(data,update);
 
   }
+  console.log(data.company)
   return (
     <>
       <Card>
@@ -56,7 +58,7 @@ function AddWork({ hideWork, works, update, onUpdateWorkHandler}) {
               <Form.Select
                 name="company"
                 aria-label="Default select example"
-                value={data.comapny}
+                value={data.Company}
                 onChange={handleChange}
               >
                 <Companies />
