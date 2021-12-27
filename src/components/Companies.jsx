@@ -13,7 +13,8 @@ const Companies = ()=>{
 
     return(
         <>
-        {/* <option>Pasirinkite įmonę</option> */}
+        <option>Pasirinkite įmonę</option>
+        
         {companies.map(obj => <Company key={obj.id} title={obj.name}/>)}
         
         </>

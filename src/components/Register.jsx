@@ -28,7 +28,7 @@ const submitHandler = (e)=>{
 
   return (
     <>
-      <h2 className="mt-3 text-center">Sukur paskyrą</h2>
+      <h2 className="mt-3 text-center">Sukurk paskyrą</h2>
       <Form className="mx-auto col-sm-6" onSubmit={submitHandler}>
         <Form.Group className="mb-2">
           <Form.Control type="text" placeholder="Iveskite varda" value={name} onChange={(e)=>setName(e.target.value)}/>

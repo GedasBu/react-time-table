@@ -1,42 +1,69 @@
 import { useEffect, useState } from "react";
-import { Card, Form, Row, Col } from "react-bootstrap";
-
-import { Button } from "react-bootstrap";
-
+import { Card, Form, Row, Col, Button } from "react-bootstrap";
+// import { Button } from "react-bootstrap";
 import Companies from "./Companies.jsx";
 import Services from "./Services.jsx";
 import * as services from "../services/workServices"
-import * as companyServices from "../services/companyServices" 
+// import * as companyServices from "../services/companyServices" 
+import {auth} from "../services/AuthServices"
+import {useAuthState} from "react-firebase-hooks/auth"
+import {useGlobalContext} from "../context/WorksContext"
+
+
 
 function AddWork({ hideWork, works, update, onUpdateWorkHandler}) {
+  const [user, loading, error] = useAuthState(auth);
+  const { handleForm, handleAddWork, work, handleValidation, errors, addWorktoFirestore} = useGlobalContext();
+ 
+
   const [data, setData] = useState({
     date: "",
     company: "",
     service: "",
     description: "",
     startTime: "",
-    endTime: "",
+    endTime: "",    
   });
 
+  // useEffect(()=>{
+  //   setData({...data, uid:user.uid})
+  // }, [user])  
+
   useEffect(()=>{
-    update && services.showById( data => setData(data),update)
- 
+    update && services.showById( data => setData(data),update) 
+  
   },[])
 
   const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    handleAddWork({[e.target.name]: e.target.value})
+    // setData({ ...data, [e.target.name]: e.target.value });
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    works(data);
-    hideWork();
+    handleValidation(work)
+    console.log('from submit form', work)
+    // alert(`Forma turi klaidu!, ${errors}`)
+    console.log('errors: ', errors)
+    if(Object.keys(errors).length !== 0){
+      addWorktoFirestore(work);
+    }   
+  
+    handleForm(false)
   };
 
   const onUpdateHandler = ()=>{
     onUpdateWorkHandler(data,update);
-
   }
-  console.log(data.company)
+  useEffect (()=>{
+    if(user){
+      handleAddWork({uid:user.uid})
+    }
+  }, [user])
+
+  console.log('from form', work)
+  
+  
   return (
     <>
       <Card>
@@ -48,7 +75,7 @@ function AddWork({ hideWork, works, update, onUpdateWorkHandler}) {
               <Form.Control
                 type="date"
                 name="date"
-                value={data.date}
+                value={work.date}
                 onChange={handleChange}
               />
               <br />
@@ -58,18 +85,19 @@ function AddWork({ hideWork, works, update, onUpdateWorkHandler}) {
               <Form.Select
                 name="company"
                 aria-label="Default select example"
-                value={data.Company}
+                value={work.Company}
                 onChange={handleChange}
               >
                 <Companies />
               </Form.Select>
+              
               <br />
             </Form.Group>
             <Form.Group>
               <Form.Select
                 name="service"
                 aria-label="Default select example"
-                value={data.service}
+                value={work.service}
                 onChange={handleChange}
               >
                 <Services />
@@ -85,7 +113,7 @@ function AddWork({ hideWork, works, update, onUpdateWorkHandler}) {
                 as="textarea"
                 placeholder="Atliktas darbas..."
                 rows={3}
-                value={data.description}
+                value={work.description}
                 name="description"
                 onChange={handleChange}
               />
@@ -98,7 +126,7 @@ function AddWork({ hideWork, works, update, onUpdateWorkHandler}) {
                   <Form.Control
                     name="startTime"
                     type="time"
-                    value={data.startTime}
+                    value={work.startTime}
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -109,7 +137,7 @@ function AddWork({ hideWork, works, update, onUpdateWorkHandler}) {
                   <Form.Control
                     name="endTime"
                     type="time"
-                    value={data.endTime}
+                    value={work.endTime}
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -133,7 +161,7 @@ function AddWork({ hideWork, works, update, onUpdateWorkHandler}) {
 
           <Col>
           <Form.Group>
-          <Button variant="danger" onClick={hideWork}>
+          <Button variant="danger" onClick={()=>{handleForm(false)}}>
                 Atšaukti
               </Button>
               </Form.Group>

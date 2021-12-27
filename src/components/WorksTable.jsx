@@ -7,6 +7,7 @@ const WorksTable = (props) => {
         services.deleteWork(id);
 
     }
+ 
   
   return (
     <>

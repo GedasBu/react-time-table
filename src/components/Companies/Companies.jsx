@@ -8,7 +8,7 @@ import CompanyById from "./CompanyById"
 const Companies = () => {
   const [companies, setCompanies] = useState([]);
   const [addCompany, setAddCompany] = useState(false);
-  const [showCompany, setShowCompany] = useState(false);
+  // const [showCompany, setShowCompany] = useState(false);
 
   console.log("add company", AddCompany);
 

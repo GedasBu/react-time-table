@@ -28,9 +28,20 @@ const signIn = async(email, password)=>{
     try{
         await auth.signInWithEmailAndPassword(email,password)
     }catch (error){
-            console.log(error.message)
+            console.log(error)
         }
    
+
+}
+
+const resetPassword = async (email)=>{
+    try{
+      await auth.sendPasswordResetEmail(email)
+    alert('Slpatazodzio atkurimo nuoroda issiusta')  
+    } catch (error) {
+        console.log(error)
+    }
+    
 
 }
 
@@ -41,5 +52,7 @@ export {
     db,
     register,
     logout,
-    signIn
+    signIn,
+    resetPassword
+
 }

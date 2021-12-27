@@ -37,7 +37,7 @@ const Login=()=>{
           <div>
               <ul>
                   <li> Jei esate cia pirma karta, <Link to="/register">prisiregistruokite</Link></li>
-                  <li> Jei neatsimenate kada lanketes , padesime prisiminti <Link to="/register"></Link></li>
+                  <li> Jei neatsimenate kada lanketes , padesime prisiminti <Link to="/reset">atkurkite slaptažodį</Link></li>
               </ul>
           </div>
 
